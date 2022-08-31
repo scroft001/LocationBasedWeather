@@ -7,13 +7,15 @@ class App extends React.Component{
         super(props);
 
         // the only time we do direct assignment to this.state
-        this.state = { lat: null };
+        this.state = { lat: null, errorMessage: "" };
 
         window.navigator.geolocation.getCurrentPosition(
             (position) => {
                 this.setState({lat: position.coords.latitude});
             }, //Success callback
-            (err) => console.log(err)
+            (err) => {
+                this.setState({errorMessage: err.PERMISSION_DENIED})
+            }
         );
     }
 
